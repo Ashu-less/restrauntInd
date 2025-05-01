@@ -58,9 +58,12 @@ public class AppetizersPanel extends JPanel {
         itemPanel.setBackground(getBackgroundColor());
     
         // ImagePath add actual later
-        JLabel imageLabel = new JLabel(new ImageIcon(imagePath));
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+        Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
         itemPanel.add(imageLabel, BorderLayout.WEST);
-    
+
+        
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new GridLayout(0, 1));
         detailsPanel.add(new JLabel(name, SwingConstants.LEFT));
