@@ -27,12 +27,11 @@ public class main {
         mainPanel = new JPanel(cardLayout);
 
         List<CartItem> cart = new ArrayList<>();
-
-        AppetizersPanel appetizersPanel = new AppetizersPanel();
-        EntreesPanel entreesPanel = new EntreesPanel();
-        DessertsPanel dessertsPanel = new DessertsPanel();
         ViewCartPanel viewCartPanel = new ViewCartPanel(cart);
-        CheckoutPanel checkoutPanel = new CheckoutPanel();
+        AppetizersPanel appetizersPanel = new AppetizersPanel(cart, viewCartPanel);
+        EntreesPanel entreesPanel = new EntreesPanel(cart, viewCartPanel);
+        DessertsPanel dessertsPanel = new DessertsPanel(cart, viewCartPanel);
+       
 
 
 
@@ -40,12 +39,11 @@ public class main {
         mainPanel.add(entreesPanel, "Entrees");
         mainPanel.add(dessertsPanel, "Desserts");
         mainPanel.add(viewCartPanel, "View Cart");
-        mainPanel.add(checkoutPanel, "Checkout");
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
 
-        String[] options = { "Appetizers", "Entrees", "Desserts", "View Cart", "Checkout" };
+        String[] options = { "Appetizers", "Entrees", "Desserts", "View Cart" };
         for (String option : options) {
             JMenuItem item = new JMenuItem(option);
             item.addActionListener(e -> cardLayout.show(mainPanel, option));

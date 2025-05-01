@@ -4,13 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class AppetizersPanel extends JPanel {
     private JPanel appetizersPanel;
     private JScrollPane scrollPane;
+    private List<CartItem> cart;
+    private ViewCartPanel viewCartPanel;
 
-    public AppetizersPanel() {
-
+    public AppetizersPanel(List<CartItem> cart, ViewCartPanel viewCartPanel) {
+        this.cart = cart;
+        this.viewCartPanel = viewCartPanel;
         setLayout(new BorderLayout());
         initializeComponents();
     }
@@ -52,57 +56,64 @@ public class AppetizersPanel extends JPanel {
         JPanel itemPanel = new JPanel();
         itemPanel.setLayout(new BorderLayout());
         itemPanel.setBackground(getBackgroundColor());
-
-        // Image
+    
+        // ImagePath add actual later
         JLabel imageLabel = new JLabel(new ImageIcon(imagePath));
         itemPanel.add(imageLabel, BorderLayout.WEST);
-
-        // Details
+    
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new GridLayout(0, 1));
         detailsPanel.add(new JLabel(name, SwingConstants.LEFT));
         detailsPanel.add(new JLabel(description, SwingConstants.LEFT));
         detailsPanel.add(new JLabel(String.format("$%.2f", cost), SwingConstants.LEFT));
-
-        // Quantity and buttons
+    
         JPanel quantityPanel = new JPanel();
         JLabel quantityLabel = new JLabel("0");
         JButton addButton = new JButton("Add");
         JButton removeButton = new JButton("Remove");
         removeButton.setEnabled(false);
+    
+        final int[] quantity = {0};
+    
+        addButton.addActionListener(e -> {
+            quantity[0]++;
+            quantityLabel.setText(String.valueOf(quantity[0]));
+            removeButton.setEnabled(quantity[0] > 0);
 
-        addButton.addActionListener(new ActionListener() {
-            private int quantity = 0;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                quantity++;
-                quantityLabel.setText(String.valueOf(quantity));
-                removeButton.setEnabled(quantity > 0);
+            CartItem cartItem = findOrCreateCartItem(name, description, cost);
+            cartItem.increaseQuantity();
+            viewCartPanel.refresh();
+        });
+    
+        removeButton.addActionListener(e -> {
+            if (quantity[0] > 0) {
+                quantity[0]--;
+                quantityLabel.setText(String.valueOf(quantity[0]));
+                removeButton.setEnabled(quantity[0] > 0);
             }
         });
-
-        removeButton.addActionListener(new ActionListener() {
-            private int quantity = 0;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (quantity > 0) {
-                    quantity--;
-                    quantityLabel.setText(String.valueOf(quantity));
-                    removeButton.setEnabled(quantity == 0);
-                }
-            }
-        });
-
+    
         quantityPanel.add(quantityLabel);
         quantityPanel.add(addButton);
         quantityPanel.add(removeButton);
         detailsPanel.add(quantityPanel);
         itemPanel.add(detailsPanel, BorderLayout.CENTER);
-
+    
         return itemPanel;
     }
+
+    private CartItem findOrCreateCartItem(String name, String description, double cost) {
+        
+        for (CartItem item : cart) {
+            if (item.getMenuItem().getName().equals(name)) {
+                return item;
+            }
+        }
+        MenuItem menuItem = new MenuItem(name, description, cost, null);
+        CartItem newItem = new CartItem(menuItem, 0);
+        cart.add(newItem);
+        return newItem;
+}
 
     private Color getBackgroundColor() {
         return (appetizersPanel.getComponentCount() % 2 == 0) ? Color.LIGHT_GRAY : Color.WHITE;
