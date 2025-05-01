@@ -1,10 +1,8 @@
 package panels;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.*;
 
 public class AppetizersPanel extends JPanel {
     private JPanel appetizersPanel;
@@ -20,7 +18,6 @@ public class AppetizersPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        // Heading
         JLabel heading = new JLabel("Appetizers", SwingConstants.CENTER);
         heading.setFont(new Font("Arial", Font.BOLD, 24));
         add(heading, BorderLayout.NORTH);
@@ -30,7 +27,6 @@ public class AppetizersPanel extends JPanel {
         appetizersPanel.setLayout(new GridLayout(0, 1)); // Vertical layout for items
         loadAppetizers();
 
-        // Scrollable view
         scrollPane = new JScrollPane(appetizersPanel);
         add(scrollPane, BorderLayout.CENTER);
     }
@@ -38,12 +34,12 @@ public class AppetizersPanel extends JPanel {
     private void loadAppetizers() {
         // Sample appetizer items
         String[][] appetizers = {
-            {"Bruschetta", "Grilled bread topped with tomatoes and basil.", "5.99", "assets/images/appetizer1.jpg"},
-            {"Stuffed Mushrooms", "Mushrooms filled with cheese and herbs.", "6.99", "assets/images/appetizer2.jpg"},
-            {"Chicken Wings", "Spicy chicken wings served with ranch.", "8.99", "assets/images/appetizer3.jpg"},
-            {"Caprese Salad", "Fresh mozzarella, tomatoes, and basil.", "7.99", "assets/images/appetizer4.jpg"},
-            {"Spring Rolls", "Crispy rolls filled with vegetables.", "4.99", "assets/images/appetizer5.jpg"},
-            {"Nachos", "Tortilla chips topped with cheese and jalapenos.", "6.49", "assets/images/appetizer6.jpg"}
+            {"Bruschetta", "Grilled bread topped with tomatoes and basil.", "5.99", "src/restaurant-ordering-system/src/panels/assets/images/Bruschetta.jpg"},
+            {"Stuffed Mushrooms", "Mushrooms filled with cheese and herbs.", "6.99", "src/restaurant-ordering-system/src/panels/assets/images/Stuffed Mushrooms.jpg"},
+            {"Chicken Wings", "Spicy chicken wings served with ranch.", "8.99", "src/restaurant-ordering-system/src/panels/assets/images/Chicken Wings.jpg"},
+            {"Caprese Salad", "Fresh mozzarella, tomatoes, and basil.", "7.99", "src/restaurant-ordering-system/src/panels/assets/images/Caprese Salad.jpg"},
+            {"Spring Rolls", "Crispy rolls filled with vegetables.", "4.99", "src/restaurant-ordering-system/src/panels/assets/images/Spring Rolls.jpg"},
+            {"Nachos", "Tortilla chips topped with cheese and jalapenos.", "6.49", "src/restaurant-ordering-system/src/panels/assets/images/Nachos.jpg"}
         };
 
         for (String[] item : appetizers) {
@@ -56,28 +52,27 @@ public class AppetizersPanel extends JPanel {
         JPanel itemPanel = new JPanel();
         itemPanel.setLayout(new BorderLayout());
         itemPanel.setBackground(getBackgroundColor());
-    
-        // ImagePath add actual later
+
         ImageIcon imageIcon = new ImageIcon(imagePath);
         Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         itemPanel.add(imageLabel, BorderLayout.WEST);
 
-        
-        JPanel detailsPanel = new JPanel();
-        detailsPanel.setLayout(new GridLayout(0, 1));
-        detailsPanel.add(new JLabel(name, SwingConstants.LEFT));
-        detailsPanel.add(new JLabel(description, SwingConstants.LEFT));
-        detailsPanel.add(new JLabel(String.format("$%.2f", cost), SwingConstants.LEFT));
-    
+        JPanel detailsPanel = new JPanel(new BorderLayout());
+        JPanel textPanel = new JPanel(new GridLayout(0, 1));
+        textPanel.add(new JLabel(name, SwingConstants.LEFT));
+        textPanel.add(new JLabel(description, SwingConstants.LEFT));
+        textPanel.add(new JLabel(String.format("$%.2f", cost), SwingConstants.LEFT));
+
         JPanel quantityPanel = new JPanel();
         JLabel quantityLabel = new JLabel("0");
         JButton addButton = new JButton("Add");
         JButton removeButton = new JButton("Remove");
         removeButton.setEnabled(false);
-    
+
         final int[] quantity = {0};
-    
+
         addButton.addActionListener(e -> {
             quantity[0]++;
             quantityLabel.setText(String.valueOf(quantity[0]));
@@ -87,7 +82,7 @@ public class AppetizersPanel extends JPanel {
             cartItem.increaseQuantity();
             viewCartPanel.refresh();
         });
-    
+
         removeButton.addActionListener(e -> {
             if (quantity[0] > 0) {
                 quantity[0]--;
@@ -95,13 +90,15 @@ public class AppetizersPanel extends JPanel {
                 removeButton.setEnabled(quantity[0] > 0);
             }
         });
-    
+
         quantityPanel.add(quantityLabel);
         quantityPanel.add(addButton);
         quantityPanel.add(removeButton);
-        detailsPanel.add(quantityPanel);
+
+        detailsPanel.add(textPanel, BorderLayout.CENTER);
+        detailsPanel.add(quantityPanel, BorderLayout.SOUTH);
         itemPanel.add(detailsPanel, BorderLayout.CENTER);
-    
+
         return itemPanel;
     }
 

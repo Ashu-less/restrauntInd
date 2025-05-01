@@ -1,9 +1,7 @@
 package panels;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.*;
 
 public class DessertsPanel extends JPanel {
     private JPanel dessertsPanel;
@@ -59,6 +57,10 @@ public class DessertsPanel extends JPanel {
             quantity[0]++;
             quantityLabel.setText("Quantity: " + quantity[0]);
             removeButton.setEnabled(quantity[0] > 0);
+
+            CartItem cartItem = findOrCreateCartItem(name, description, cost); 
+            cartItem.increaseQuantity(); 
+            viewCartPanel.refresh(); 
         });
     
         removeButton.addActionListener(e -> {
@@ -66,10 +68,6 @@ public class DessertsPanel extends JPanel {
                 quantity[0]--;
                 quantityLabel.setText("Quantity: " + quantity[0]);
                 removeButton.setEnabled(quantity[0] > 0);
-
-                CartItem cartItem = findOrCreateCartItem(name, description, cost);
-                cartItem.increaseQuantity();
-                viewCartPanel.refresh();
             }
         });
     

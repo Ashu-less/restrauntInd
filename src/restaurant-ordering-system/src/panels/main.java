@@ -1,20 +1,15 @@
 package panels;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import panels.AppetizersPanel;
-import panels.CheckoutPanel;
-import panels.EntreesPanel;
-import panels.DessertsPanel;
-import panels.ViewCartPanel;
+import javax.swing.*;
 
 
-
+//get alternating colors for all pages
+//images for everything
+//fix cart to where when I remove from app or entree, it updats in cart
+// and have a text Field for the tip
 
 public class main {
     private JFrame frame;
@@ -24,21 +19,21 @@ public class main {
     public main() {
         frame = new JFrame("Restaurant Ordering System");
         cardLayout = new CardLayout();
-        mainPanel = new JPanel(cardLayout);
+        mainPanel = new JPanel(new BorderLayout()); 
 
         List<CartItem> cart = new ArrayList<>();
         ViewCartPanel viewCartPanel = new ViewCartPanel(cart);
         AppetizersPanel appetizersPanel = new AppetizersPanel(cart, viewCartPanel);
         EntreesPanel entreesPanel = new EntreesPanel(cart, viewCartPanel);
         DessertsPanel dessertsPanel = new DessertsPanel(cart, viewCartPanel);
-       
 
+        JPanel cardPanel = new JPanel(cardLayout); 
+        cardPanel.add(appetizersPanel, "Appetizers");
+        cardPanel.add(entreesPanel, "Entrees");
+        cardPanel.add(dessertsPanel, "Desserts");
+        cardPanel.add(viewCartPanel, "View Cart");
 
-
-        mainPanel.add(appetizersPanel, "Appetizers");
-        mainPanel.add(entreesPanel, "Entrees");
-        mainPanel.add(dessertsPanel, "Desserts");
-        mainPanel.add(viewCartPanel, "View Cart");
+        mainPanel.add(cardPanel, BorderLayout.CENTER);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
@@ -46,7 +41,7 @@ public class main {
         String[] options = { "Appetizers", "Entrees", "Desserts", "View Cart" };
         for (String option : options) {
             JMenuItem item = new JMenuItem(option);
-            item.addActionListener(e -> cardLayout.show(mainPanel, option));
+            item.addActionListener(e -> cardLayout.show(cardPanel, option));
             menu.add(item);
         }
 
