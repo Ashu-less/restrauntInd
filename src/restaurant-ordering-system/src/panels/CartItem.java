@@ -1,3 +1,5 @@
+package panels;
+
 public class CartItem {
     private MenuItem menuItem;
     private int quantity;

@@ -1,4 +1,4 @@
-package models;
+package panels;
 
 import java.awt.Image;
 

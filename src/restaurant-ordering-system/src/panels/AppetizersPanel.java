@@ -1,3 +1,5 @@
+package panels;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +10,7 @@ public class AppetizersPanel extends JPanel {
     private JScrollPane scrollPane;
 
     public AppetizersPanel() {
+
         setLayout(new BorderLayout());
         initializeComponents();
     }
