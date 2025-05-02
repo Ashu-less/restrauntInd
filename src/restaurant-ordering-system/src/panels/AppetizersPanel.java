@@ -91,6 +91,8 @@ public class AppetizersPanel extends JPanel {
                 quantity[0]--;
                 quantityLabel.setText(String.valueOf(quantity[0]));
                 removeButton.setEnabled(quantity[0] > 0);
+
+                viewCartPanel.removeItemFromCart(name); // Update the cart when removing items
             }
         });
 

@@ -76,6 +76,8 @@ public class DessertsPanel extends JPanel {
                 quantity[0]--;
                 quantityLabel.setText("Quantity: " + quantity[0]);
                 removeButton.setEnabled(quantity[0] > 0);
+
+                viewCartPanel.removeItemFromCart(name); // Update the cart when removing items
             }
         });
     

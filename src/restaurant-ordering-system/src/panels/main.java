@@ -6,8 +6,8 @@ import java.util.List;
 import javax.swing.*;
 
 
-//get alternating colors for all pages
-//images for everything
+
+//images for Entrees
 //fix cart to where when I remove from app or entree, it updats in cart
 // and have a text Field for the tip
 

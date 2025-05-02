@@ -47,14 +47,16 @@ public class ViewCartPanel extends JPanel {
         double subtotal = 0;
 
         for (CartItem item : cart) {
-            double extendedCost = item.getExtendedCost();
-            subtotal += extendedCost;
-            tableModel.addRow(new Object[]{
-                item.getMenuItem().getName(),
-                item.getQuantity(),
-                String.format("$%.2f", item.getMenuItem().getCost()),
-                String.format("$%.2f", extendedCost)
-            });
+            if (item.getQuantity() > 0) { // Only display items with quantity > 0
+                double extendedCost = item.getExtendedCost();
+                subtotal += extendedCost;
+                tableModel.addRow(new Object[]{
+                    item.getMenuItem().getName(),
+                    item.getQuantity(),
+                    String.format("$%.2f", item.getMenuItem().getCost()),
+                    String.format("$%.2f", extendedCost)
+                });
+            }
         }
 
         double tax = subtotal * TAX_RATE;
@@ -70,6 +72,20 @@ public class ViewCartPanel extends JPanel {
     private void checkout() {
         JOptionPane.showMessageDialog(this, "Thank you for your order!", "Checkout", JOptionPane.INFORMATION_MESSAGE);
         cart.clear();
+        refresh();
+    }
+
+    // Add a method to remove items from the cart
+    public void removeItemFromCart(String itemName) {
+        for (CartItem item : cart) {
+            if (item.getMenuItem().getName().equals(itemName)) {
+                item.decreaseQuantity();
+                if (item.getQuantity() <= 0) {
+                    cart.remove(item); // Remove item if quantity is 0
+                }
+                break;
+            }
+        }
         refresh();
     }
 }

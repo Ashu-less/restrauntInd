@@ -47,17 +47,8 @@ public class EntreesPanel extends JPanel {
         itemPanel.setLayout(new BorderLayout());
         itemPanel.setBackground(panel.getComponentCount() % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
 
-        String imagePath = ENTREES[panel.getComponentCount()][3];
-        java.net.URL imageUrl = getClass().getResource(imagePath);
-        if (imageUrl != null) {
-            ImageIcon imageIcon = new ImageIcon(imageUrl);
-            Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-            itemPanel.add(imageLabel, BorderLayout.WEST);
-        } else {
-            JLabel imageLabel = new JLabel("Image not found");
-            itemPanel.add(imageLabel, BorderLayout.WEST);
-        }
+        JLabel imageLabel = new JLabel(new ImageIcon(name)); // Use the same system as DessertsPanel
+        itemPanel.add(imageLabel, BorderLayout.WEST);
 
         JPanel detailsPanel = new JPanel(new BorderLayout());
         detailsPanel.setOpaque(false); // Ensure transparency for alternating colors
@@ -91,6 +82,8 @@ public class EntreesPanel extends JPanel {
                 quantity[0]--;
                 quantityLabel.setText(String.valueOf(quantity[0]));
                 removeButton.setEnabled(quantity[0] > 0);
+
+                viewCartPanel.removeItemFromCart(name); // Update the cart when removing items
             }
         });
 
