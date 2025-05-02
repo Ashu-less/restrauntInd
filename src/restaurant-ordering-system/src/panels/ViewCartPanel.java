@@ -1,9 +1,9 @@
 package panels;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ViewCartPanel extends JPanel {
     private JTable cartTable;

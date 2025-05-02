@@ -9,6 +9,13 @@ public class DessertsPanel extends JPanel {
     private List<CartItem> cart;
     private ViewCartPanel viewCartPanel;
 
+    private static final String[][] DESSERTS = {
+        {"Chocolate Cake", "Rich and moist chocolate cake.", "6.99", "src/restaurant-ordering-system/src/panels/assets/images/Chocolate Cake.jpg"},
+        {"Cheesecake", "Creamy cheesecake with a graham cracker crust.", "7.99", "src/restaurant-ordering-system/src/panels/assets/images/Cheesecake.jpg"},
+        {"Ice Cream Sundae", "Vanilla ice cream with chocolate syrup and nuts.", "5.99", "src/restaurant-ordering-system/src/panels/assets/images/Ice Cream Sundae.jpg"},
+        {"Apple Pie", "Classic apple pie with a flaky crust.", "4.99", "src/restaurant-ordering-system/src/panels/assets/images/Apple Pie.jpg"}
+    };
+
     public DessertsPanel(List<CartItem> cart, ViewCartPanel viewCartPanel) {
         this.cart = cart;
         this.viewCartPanel = viewCartPanel;
@@ -21,8 +28,8 @@ public class DessertsPanel extends JPanel {
         dessertsPanel = new JPanel();
         dessertsPanel.setLayout(new GridLayout(0, 1));
 
-        for (int i = 1; i <= 4; i++) {
-            dessertsPanel.add(createDessertItemPanel("Dessert " + i, "Delicious dessert " + i, 5.99 * i, "assets/images/dessert" + i + ".jpg"));
+        for (String[] dessert : DESSERTS) {
+            dessertsPanel.add(createDessertItemPanel(dessert[0], dessert[1], Double.parseDouble(dessert[2]), dessert[3]));
         }
 
         scrollPane = new JScrollPane(dessertsPanel);
