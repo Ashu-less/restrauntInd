@@ -51,7 +51,7 @@ public class AppetizersPanel extends JPanel {
     private JPanel createMenuItemPanel(String name, String description, double cost, String imagePath) {
         JPanel itemPanel = new JPanel();
         itemPanel.setLayout(new BorderLayout());
-        itemPanel.setBackground(getBackgroundColor());
+        itemPanel.setBackground(appetizersPanel.getComponentCount() % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
 
         ImageIcon imageIcon = new ImageIcon(imagePath);
         Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -60,12 +60,15 @@ public class AppetizersPanel extends JPanel {
         itemPanel.add(imageLabel, BorderLayout.WEST);
 
         JPanel detailsPanel = new JPanel(new BorderLayout());
+        detailsPanel.setOpaque(false); // Ensure transparency for alternating colors
         JPanel textPanel = new JPanel(new GridLayout(0, 1));
+        textPanel.setOpaque(false); // Ensure transparency for alternating colors
         textPanel.add(new JLabel(name, SwingConstants.LEFT));
         textPanel.add(new JLabel(description, SwingConstants.LEFT));
         textPanel.add(new JLabel(String.format("$%.2f", cost), SwingConstants.LEFT));
 
         JPanel quantityPanel = new JPanel();
+        quantityPanel.setOpaque(false); // Ensure transparency for alternating colors
         JLabel quantityLabel = new JLabel("0");
         JButton addButton = new JButton("Add");
         JButton removeButton = new JButton("Remove");

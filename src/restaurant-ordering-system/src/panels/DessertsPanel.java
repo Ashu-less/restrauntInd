@@ -39,20 +39,21 @@ public class DessertsPanel extends JPanel {
     private JPanel createDessertItemPanel(String name, String description, double cost, String imagePath) {
         JPanel itemPanel = new JPanel();
         itemPanel.setLayout(new BorderLayout());
-        itemPanel.setBackground(itemPanel.getBackground().equals(Color.LIGHT_GRAY) ? Color.WHITE : Color.LIGHT_GRAY);
+        itemPanel.setBackground(dessertsPanel.getComponentCount() % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
     
         JLabel imageLabel = new JLabel(new ImageIcon(imagePath));
         itemPanel.add(imageLabel, BorderLayout.WEST);
     
-        JPanel detailsPanel = new JPanel();
-        detailsPanel.setLayout(new GridLayout(0, 1));
-        detailsPanel.add(new JLabel(name, SwingConstants.LEFT));
-        detailsPanel.add(new JLabel(description, SwingConstants.LEFT));
-        detailsPanel.add(new JLabel("$" + String.format("%.2f", cost), SwingConstants.LEFT));
+        JPanel detailsPanel = new JPanel(new BorderLayout());
+        detailsPanel.setOpaque(false); // Ensure transparency for alternating colors
+        JPanel textPanel = new JPanel(new GridLayout(0, 1));
+        textPanel.setOpaque(false); // Ensure transparency for alternating colors
+        textPanel.add(new JLabel(name, SwingConstants.LEFT));
+        textPanel.add(new JLabel(description, SwingConstants.LEFT));
+        textPanel.add(new JLabel("$" + String.format("%.2f", cost), SwingConstants.LEFT));
     
         JPanel quantityPanel = new JPanel();
-        quantityPanel.setLayout(new FlowLayout());
-    
+        quantityPanel.setOpaque(false); // Ensure transparency for alternating colors
         JLabel quantityLabel = new JLabel("Quantity: 0");
         JButton addButton = new JButton("Add");
         JButton removeButton = new JButton("Remove");
@@ -64,10 +65,10 @@ public class DessertsPanel extends JPanel {
             quantity[0]++;
             quantityLabel.setText("Quantity: " + quantity[0]);
             removeButton.setEnabled(quantity[0] > 0);
-
-            CartItem cartItem = findOrCreateCartItem(name, description, cost); 
-            cartItem.increaseQuantity(); 
-            viewCartPanel.refresh(); 
+    
+            CartItem cartItem = findOrCreateCartItem(name, description, cost);
+            cartItem.increaseQuantity();
+            viewCartPanel.refresh();
         });
     
         removeButton.addActionListener(e -> {
