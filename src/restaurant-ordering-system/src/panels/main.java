@@ -7,8 +7,6 @@ import javax.swing.*;
 
 
 
-//images for Entrees
-//fix cart to where when I remove from app or entree, it updats in cart
 // and have a text Field for the tip
 
 public class main {

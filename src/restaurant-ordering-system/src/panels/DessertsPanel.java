@@ -38,10 +38,11 @@ public class DessertsPanel extends JPanel {
 
     private JPanel createDessertItemPanel(String name, String description, double cost, String imagePath) {
         JPanel itemPanel = new JPanel();
-        itemPanel.setLayout(new BorderLayout());
+        itemPanel.setLayout(new BorderLayout(10, 10));
         itemPanel.setBackground(dessertsPanel.getComponentCount() % 2 == 0 ? Color.LIGHT_GRAY : Color.WHITE);
     
-        JLabel imageLabel = new JLabel(new ImageIcon(imagePath));
+        JLabel imageLabel = new JLabel(new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         itemPanel.add(imageLabel, BorderLayout.WEST);
     
         JPanel detailsPanel = new JPanel(new BorderLayout());
@@ -77,13 +78,19 @@ public class DessertsPanel extends JPanel {
                 quantityLabel.setText("Quantity: " + quantity[0]);
                 removeButton.setEnabled(quantity[0] > 0);
 
-                viewCartPanel.removeItemFromCart(name); 
+                CartItem cartItem = findOrCreateCartItem(name, description, cost);
+                cartItem.decreaseQuantity();
+                if (cartItem.getQuantity() == 0) {
+                    cart.remove(cartItem);
+                }
+                viewCartPanel.refresh();
             }
         });
     
         quantityPanel.add(quantityLabel);
         quantityPanel.add(addButton);
         quantityPanel.add(removeButton);
+        detailsPanel.add(textPanel, BorderLayout.NORTH);
         detailsPanel.add(quantityPanel);
     
         itemPanel.add(detailsPanel, BorderLayout.CENTER);
