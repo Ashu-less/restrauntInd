@@ -47,7 +47,7 @@ public class ViewCartPanel extends JPanel {
         double subtotal = 0;
 
         for (CartItem item : cart) {
-            if (item.getQuantity() > 0) { // Only display items with quantity > 0
+            if (item.getQuantity() > 0) { 
                 double extendedCost = item.getExtendedCost();
                 subtotal += extendedCost;
                 tableModel.addRow(new Object[]{
@@ -75,13 +75,13 @@ public class ViewCartPanel extends JPanel {
         refresh();
     }
 
-    // Add a method to remove items from the cart
+    
     public void removeItemFromCart(String itemName) {
         for (CartItem item : cart) {
             if (item.getMenuItem().getName().equals(itemName)) {
                 item.decreaseQuantity();
                 if (item.getQuantity() <= 0) {
-                    cart.remove(item); // Remove item if quantity is 0
+                    cart.remove(item); 
                 }
                 break;
             }

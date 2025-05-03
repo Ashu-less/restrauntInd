@@ -45,15 +45,15 @@ public class DessertsPanel extends JPanel {
         itemPanel.add(imageLabel, BorderLayout.WEST);
     
         JPanel detailsPanel = new JPanel(new BorderLayout());
-        detailsPanel.setOpaque(false); // Ensure transparency for alternating colors
+        detailsPanel.setOpaque(false); 
         JPanel textPanel = new JPanel(new GridLayout(0, 1));
-        textPanel.setOpaque(false); // Ensure transparency for alternating colors
+        textPanel.setOpaque(false); 
         textPanel.add(new JLabel(name, SwingConstants.LEFT));
         textPanel.add(new JLabel(description, SwingConstants.LEFT));
         textPanel.add(new JLabel("$" + String.format("%.2f", cost), SwingConstants.LEFT));
     
         JPanel quantityPanel = new JPanel();
-        quantityPanel.setOpaque(false); // Ensure transparency for alternating colors
+        quantityPanel.setOpaque(false); 
         JLabel quantityLabel = new JLabel("Quantity: 0");
         JButton addButton = new JButton("Add");
         JButton removeButton = new JButton("Remove");
@@ -77,7 +77,7 @@ public class DessertsPanel extends JPanel {
                 quantityLabel.setText("Quantity: " + quantity[0]);
                 removeButton.setEnabled(quantity[0] > 0);
 
-                viewCartPanel.removeItemFromCart(name); // Update the cart when removing items
+                viewCartPanel.removeItemFromCart(name); 
             }
         });
     

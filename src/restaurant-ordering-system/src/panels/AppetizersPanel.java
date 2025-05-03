@@ -24,7 +24,7 @@ public class AppetizersPanel extends JPanel {
 
         // Main panel for appetizers
         appetizersPanel = new JPanel();
-        appetizersPanel.setLayout(new GridLayout(0, 1)); // Vertical layout for items
+        appetizersPanel.setLayout(new GridLayout(0, 1)); 
         loadAppetizers();
 
         scrollPane = new JScrollPane(appetizersPanel);
@@ -32,7 +32,7 @@ public class AppetizersPanel extends JPanel {
     }
 
     private void loadAppetizers() {
-        // Sample appetizer items
+        
         String[][] appetizers = {
             {"Bruschetta", "Grilled bread topped with tomatoes and basil.", "5.99", "src/restaurant-ordering-system/src/panels/assets/images/Bruschetta.jpg"},
             {"Stuffed Mushrooms", "Mushrooms filled with cheese and herbs.", "6.99", "src/restaurant-ordering-system/src/panels/assets/images/Stuffed Mushrooms.jpg"},
@@ -60,15 +60,15 @@ public class AppetizersPanel extends JPanel {
         itemPanel.add(imageLabel, BorderLayout.WEST);
 
         JPanel detailsPanel = new JPanel(new BorderLayout());
-        detailsPanel.setOpaque(false); // Ensure transparency for alternating colors
+        detailsPanel.setOpaque(false); 
         JPanel textPanel = new JPanel(new GridLayout(0, 1));
-        textPanel.setOpaque(false); // Ensure transparency for alternating colors
+        textPanel.setOpaque(false); 
         textPanel.add(new JLabel(name, SwingConstants.LEFT));
         textPanel.add(new JLabel(description, SwingConstants.LEFT));
         textPanel.add(new JLabel(String.format("$%.2f", cost), SwingConstants.LEFT));
 
         JPanel quantityPanel = new JPanel();
-        quantityPanel.setOpaque(false); // Ensure transparency for alternating colors
+        quantityPanel.setOpaque(false); 
         JLabel quantityLabel = new JLabel("0");
         JButton addButton = new JButton("Add");
         JButton removeButton = new JButton("Remove");
@@ -92,7 +92,7 @@ public class AppetizersPanel extends JPanel {
                 quantityLabel.setText(String.valueOf(quantity[0]));
                 removeButton.setEnabled(quantity[0] > 0);
 
-                viewCartPanel.removeItemFromCart(name); // Update the cart when removing items
+                viewCartPanel.removeItemFromCart(name); 
             }
         });
 
